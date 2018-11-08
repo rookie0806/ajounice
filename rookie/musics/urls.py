@@ -33,5 +33,15 @@ urlpatterns = [
        regex=r'^search/$',
        view=views.Search.as_view(),
        name = 'Search'
+   ),
+   url(
+       regex=r'^getTag/$',
+       view=views.GetTag.as_view(),
+       name = 'getTag'
+   ),
+   url(
+       regex=r'^tagList/$',
+       view=views.ListTagTop100.as_view(),
+       name = 'tagNotContain'
    )
 ]

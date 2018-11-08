@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Ionicon from "react-ionicons";
 import { Link } from "react-router-dom";
 import styles from "./styles.scss";

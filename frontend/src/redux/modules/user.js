@@ -3,6 +3,7 @@
 //actions
 const SAVE_TOKEN = "SAVE_TOKEN";
 const LOGOUT = "LOGOUT";
+const SAVE_PRICE = "SAVE_PRICE";
 //actions creators
 function saveToken(token){
     return{
@@ -10,9 +11,16 @@ function saveToken(token){
         token
     }
 }
+
 function logout(){
     return{
         type: LOGOUT
+    }
+}
+function savePrice(price){
+    return{
+        type: SAVE_PRICE,
+        price
     }
 }
 //API actions
@@ -91,6 +99,8 @@ const initialState = {
 
 function reducer(state=initialState,action){
     switch(action.type){
+        case SAVE_PRICE:
+            return applySetPrice(state,action);
         case SAVE_TOKEN:
             return applySetToken(state,action);
         case LOGOUT:
@@ -100,6 +110,14 @@ function reducer(state=initialState,action){
     }
 }
 //reducer functions
+
+function applySetPrice(state,action){
+    const {price} = action;
+    return {
+        ...state,
+        price
+    }
+}
 
 function applySetToken(state,action){
     const {token} = action;

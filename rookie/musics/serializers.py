@@ -12,7 +12,16 @@ class FeedUserSerializer(serializers.ModelSerializer):
         )
 
 
-class MusicSerializer(TaggitSerializer,serializers.ModelSerializer):
+class TagsSerializer(TaggitSerializer,serializers.ModelSerializer):
+    tags = TagListSerializerField()
+    class Meta:
+        model = models.Music
+        fields = (
+            "tags",
+        )
+
+
+class MusicSerializer(serializers.ModelSerializer):
     tags = TagListSerializerField()
     class Meta:
         model = models.Music

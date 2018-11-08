@@ -71,6 +71,7 @@ const RenderTop100 = props => (
                 <td className={styles.column}>곡명</td>
                 <td className={styles.column}>가수</td>
                 <td className={styles.column}>앨범명</td>
+                <td className={styles.column}>삭제</td>
             </tr>
             {props.top100.map(music => <Music {...music} key={music.id}/>)} 
         </table>
@@ -78,7 +79,11 @@ const RenderTop100 = props => (
 )
 
 Main.propTypes = {
-    loading : PropTypes.bool.isRequired
+    MakeLoading : PropTypes.func.isRequired,
+    loading : PropTypes.bool.isRequired,
+    handleInputChange: PropTypes.func.isRequired,
+    handleCrawling: PropTypes.func.isRequired,
+    url: PropTypes.string.isRequired,
 }
 
 export default Main;

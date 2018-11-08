@@ -1,0 +1,81 @@
+.delete {
+  min-height: 300px;
+  display:flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  align-items : center;
+
+  @include breakpoint(mobileonly) {
+    margin-top: 10px;
+  }
+  .column {
+    .buttonWhite {
+      background-color: white;
+      color: black;
+      border: none;
+      padding: 20px 32px;
+      text-align: center;
+      margin: 10px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      -webkit-transition-duration: 0.4s;
+      /* Safari */
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .buttonWhite:hover {
+      background-color: #555555;
+      color: white;
+    }
+
+    .buttonWhite:focus {
+      outline: none;
+    }
+    margin-top: 20px;
+    .tag{
+      display:flex;
+      justify-content: center;
+      flex-direction: row;
+    }
+    .sentence {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      font-size: $normal-font-size;
+      font-weight: 600;
+      font-size: $small-font-size;
+      color: $dark-grey;
+      margin-bottom: 15px;
+    }
+    .music{
+      width:100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top:10px;
+      display: flex;
+      .musics{
+        margin-top:10px;
+        .table {
+          justify-content: space-between;
+          vertical-align: baseline;
+            .column{
+                padding : 30px;
+                vertical-align: middle;
+                border-top: 0.5px solid darkgrey;
+                border-bottom: 0.5px solid darkgrey;
+                color : black;
+            }
+            
+              
+        }
+    }
+  }
+    .white-box {
+      text-align: center;
+      padding: 60px;
+    }
+  }
+}

@@ -2,6 +2,7 @@ from . import models, serializers
 from rest_framework.views import APIView
 from rest_framework import status
 from django.core.files import File
+from rest_framework.generics import ListAPIView
 import requests
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -11,14 +12,37 @@ from rookie.users import models as user_models
 # Create your views here.
 
 
-
-class ListTop100(APIView):
+class ListTagTop100(ListAPIView): #Tag not contain Top 100
     permission_classes = (AllowAny,)
+
+    def get_queryset(self):
+        return
+        
+    def get(self, request, format=None):
+        tags = request.query_params.get('tags',None)
+        tags = tags.split(",")
+        List = models.Music.objects.filter(Parsing_time="2018090818").exclude(tags__name__in=tags).order_by('Grade')[:100]
+        serializer = serializers.MusicSerializer(List,many=True)
+
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+class GetTag(APIView):
+    permission_classes = (AllowAny,)
+    def get(self, request, format=None):
+        melonSerial = request.query_params.get('melonNum', None)
+        music = models.Music.objects.get(Melon_serial=melonSerial)
+        serializer = serializers.MusicSerializer(music)
+        return Response(data=serializer.data)
+
+class ListTop100(ListAPIView):
+    permission_classes = (AllowAny,)
+
+    def get_queryset(self):
+        return
     def get(self, request, format=None):
         
         List = models.Music.objects.filter(Parsing_time="2018090818").order_by('Grade')[:100]
         serializer = serializers.MusicSerializer(List,many=True)
-
         return Response(data=serializer.data) 
 
 class ListView(APIView):
@@ -49,6 +73,7 @@ class Applyimg(APIView):
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
         
 class MakeTop300List(APIView):
+    permission_classes = (AllowAny,)
     def get(self, request, format=None):
         try:
             user = request.user
@@ -90,7 +115,7 @@ def get_key(List):
 
 
 class Search(APIView):
-
+    permission_classes = (AllowAny,)
     def get(self, request, format=None):
         tags = request.query_params.get('tags',None)
         tags = tags.split(",")
