@@ -40,7 +40,7 @@ urlpatterns = [
         view=views.UserProfile.as_view(),
         name='profile'
     ),
-    url(r'^login/facebook/$', views.FacebookLogin.as_view(), name='fb_login'),
+    #url(r'^login/facebook/$', views.FacebookLogin.as_view(), name='fb_login'),
     url(
         regex=r'(?P<user_id>[0-9]+)/follow/$',
         view=views.FollowUser.as_view(),

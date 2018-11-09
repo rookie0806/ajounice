@@ -5,7 +5,7 @@ from urllib.request import urlopen
 from django.core.files import File
 import ssl
 
-@receiver(user_signed_up)
+'''@receiver(user_signed_up)
 def user_signed_up(request, user, **kwargs):
     context = ssl._create_unverified_context()
     if len(user.socialaccount_set.all()) > 0:
@@ -18,4 +18,4 @@ def user_signed_up(request, user, **kwargs):
         io = BytesIO(avatar_image.read())
         user.profileimg.save('{}.jpg'.format(uid), File(io))
         user.name = user.get_full_name()
-    user.save()
+    user.save()'''

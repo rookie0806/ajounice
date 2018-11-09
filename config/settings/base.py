@@ -3,7 +3,7 @@ Base settings to build other settings files upon.
 """
 
 import environ
-
+import os
 ROOT_DIR = environ.Path(__file__) - 3  # (rookie/config/settings/base.py - 3 = rookie/)
 APPS_DIR = ROOT_DIR.path('rookie')
 
@@ -61,7 +61,7 @@ DJANGO_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.humanize', # Handy template tags
+    'django.contrib.humanize', # Handy template tags
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
@@ -81,7 +81,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'rookie.users.apps.UsersAppConfig',
-    'rookie.musics.apps.MusicsConfig',
+    'rookie.eclass.apps.EclassConfig',
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -169,9 +169,11 @@ STATICFILES_FINDERS = [
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(APPS_DIR('media'))
+#MEDIA_ROOT = str(APPS_DIR('zip'))
+MEDIA_ROOT = str(APPS_DIR('temporary'))
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
-MEDIA_URL = '/media/'
+MEDIA_URL = '/download/'
+ZIP_URL = '/temporary/'
 
 # TEMPLATES
 # ------------------------------------------------------------------------------
@@ -246,7 +248,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = 'rookie.users.adapters.AccountAdapter'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = 'rookie.users.adapters.SocialAccountAdapter'
+#SOCIALACCOUNT_ADAPTER = 'rookie.users.adapters.SocialAccountAdapter'
 
 TAGGIT_CASE_INSENSITIVE = True
 
