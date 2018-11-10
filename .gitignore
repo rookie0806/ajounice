@@ -277,7 +277,7 @@ pip-selfcheck.json
 
 
 ### Project template
-
+frontend/build/
 rookie/media/
 
 .pytest_cache/
