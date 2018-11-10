@@ -53,7 +53,7 @@ coverage.xml
 staticfiles/
 
 # Sphinx documentation
-docs/_build/
+#docs/_build/
 
 # PyBuilder
 target/
@@ -277,7 +277,6 @@ pip-selfcheck.json
 
 
 ### Project template
-frontend/build/
 rookie/media/
 
 .pytest_cache/
