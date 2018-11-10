@@ -7,14 +7,11 @@ const Footer = (props, context) => (
       <nav className={styles.nav}>
         <ul className={styles.list}>
           <li className={styles.listItem}>회사 소개</li>
-          <li className={styles.listItem}>이용 약관</li>
-          <li className={styles.listItem}>회사 정책</li>
-          <li className={styles.listItem}>고객 센터</li>
         </ul>
       </nav>
     </div>
     <div className={styles.column}>
-      <span className={styles.companyName}>My100</span>
+      <span className={styles.companyName}>AjouNice</span>
     </div>
   </footer>
 );

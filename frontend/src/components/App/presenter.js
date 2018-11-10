@@ -6,6 +6,7 @@ import {Route, Switch} from "react-router-dom";
 import Auth from "components/Auth";
 import Navigation from "components/Navigation";
 import Main from "components/Main";
+import LoginForm from "components/LoginForm";
 import Logout from "components/Logout";
 import Delete from "components/DeleteForm";
 const App = props => [
@@ -30,10 +31,16 @@ const PrivateRoutes = props => (
 
 const PublicRoutes = props => (
     <Switch>
+        <Route exact path="/" component={Auth}/>
+    </Switch>
+)
+/*
+const PublicRoutes = props => (
+    <Switch>
         <Route exact path="/" component={Main}/>
         <Route exact path="/delete" component={Delete}/>
         <Route exact path="/signup" component={Auth}/>
         <Route exact path="/forgot" render={()=> "password"}/>
     </Switch>
-)   
+)   */
 export default App;

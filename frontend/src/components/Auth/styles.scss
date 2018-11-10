@@ -49,7 +49,7 @@
     }
     .white-box {
       text-align: center;
-      padding: 20px;
+      padding: 80px;
       @include boxBorder(no);
        @include breakpoint(mobileonly) {
         background-color: transparent;
