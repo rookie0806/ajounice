@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from django.views.static import serve
 from rest_framework_jwt.views import obtain_jwt_token
 from rookie import views
 
@@ -16,13 +17,14 @@ urlpatterns = [
     url(r'^eclass/', include("rookie.eclass.urls", namespace="eclass")),
     url(r'^users/', include("rookie.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^main/', views.ReactAppView.as_view()),
-    
+    url(r'^download/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     # Your stuff: custom urls includes go here
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT,
 )
-
+urlpatterns += [
+    url(r'^', views.ReactAppView.as_view()),
+]
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
