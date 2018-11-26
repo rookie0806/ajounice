@@ -84,6 +84,12 @@
         outline: none;
     }
   }
+  .failure {
+    margin : 10px;
+    font-size: $small-font-size;
+    color: red;
+    margin-bottom: 5px;
+  }
   .forgotLink {
     font-size: $small-font-size;
     color: $dark-blue;

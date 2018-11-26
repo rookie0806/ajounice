@@ -1,0 +1,130 @@
+.Down-form {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  min-height: 100%;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+
+  @include breakpoint(mobileonly) {
+    margin-top: 10px;
+  }
+
+  .column {
+    display: flex;
+    margin-top: 20px;
+    .white-box {
+      text-align: center;
+      padding: 100px;
+      padding-top:50px;
+      padding-bottom:50px;
+      @include boxBorder(no);
+
+      @include breakpoint(mobileonly) {
+        background-color: transparent;
+        border: 0;
+        margin-top: 30px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+      }
+      .change-link {
+        color: $light-blue;
+        cursor: pointer;
+      }
+      .Explanation{
+          .first {
+            display: flex;
+            flex-basis: 100%;
+            align-items: center;
+            color: rgba(0, 0, 0, 0.35);
+            font-size: 25px;
+            font-weight: bold;
+            margin: 0px -80px 0px -80px
+          }
+          .first::before,
+          .first::after {
+            content: "";
+            flex-grow: 1;
+            background: rgba(53, 39, 39, 0.35);
+            height: 1px;
+            font-size: 0px;
+            line-height: 0px;
+            margin: 0px 10px;
+          }
+          color:black;
+      }
+      .downbutton{
+          padding: 20px 100px 20px 100px;
+          background-color : black;
+          color : white;
+          border-color : 99b9cf;
+          margin-bottom : 10px;
+          border-radius : 3px;
+            margin-left: auto;
+            margin-right: auto;
+                border: none;
+                text-align: center;
+                text-decoration: none;
+                color: white;
+                outline : 0;
+                vertical-align: middle;
+                font-size:15px;
+                color:white;
+                font-weight:bold;
+                white-space: nowrap;
+                cursor: pointer;
+                .loadingbar{
+                    margin-top:5px;
+                }
+          }
+      .item2{
+          font-size:15px;
+          table-layout : fixed;
+          margin-top : 5px;
+          border-radius : 3px;
+          position : relative;
+          .detail{
+              display:none;
+          }
+      }
+      .item{
+          padding:20px;
+          display: flex;
+          background-color : $dark-grey;
+          color : white;
+          border-color : 99b9cf;
+          margin-bottom : 10px;
+          border-radius : 3px;
+          .button{
+                margin-left: auto;
+                margin-right: auto;
+                border: none;
+                background-color:inherit;
+                text-align: center;
+                text-decoration: none;
+                color: white;
+                outline : 0;
+                vertical-align: middle;
+                white-space: nowrap;
+                cursor: pointer;
+                .word {
+                    padding-left:5px;
+                    font-size: 12px;
+                }
+                .subname{
+                    font-size:15px;
+                    color:white;
+                    font-weight:bold;
+                }
+          }
+      }
+      p {
+        margin-top: 20px;
+        margin-bottom: 40px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+    }
+  }
+}

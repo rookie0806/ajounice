@@ -18,13 +18,13 @@ const Navigation = (props, context) => (
             </div>
             <div className={styles.icons}>
                 <div className={styles.navIcon}>
-                    <a href="https://www.facebook.com/My100-264678524253592" target="_blank">
+                    <a href="https://www.facebook.com/ajounice" target="_blank">
                         <Ionicon icon="logo-facebook" fontSize="28px" color="darkblue"/>
                     </a>
                 </div>
             
                 <div className={styles.navIcon}>
-                    <a href="https://www.instagram.com/my100_official" target="_blank">
+                    <a href="https://www.instagram.com/ajounice.official/" target="_blank">
                         <Ionicon icon="logo-instagram" fontSize="28px" color="rgb(175, 23, 108)"/>
                     </a>
                 </div>

@@ -5,6 +5,11 @@ app_name = "users"
 
 urlpatterns = [
     url(
+        regex=r'^subject/$',
+        view=views.Subject.as_view(),
+        name='view_subject'
+    ),
+    url(
        regex=r'^check/$',
        view=views.TodayCheck.as_view(),
        name = 'view_check'

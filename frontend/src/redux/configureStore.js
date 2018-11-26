@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import {routerReducer, routerMiddleware} from "react-router-redux";
 import createHistory from "history/createBrowserHistory";
 import user from "redux/modules/user";
-import music from "redux/modules/music";
+import eclass from "redux/modules/eclass";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {i18nState} from "redux-i18n"; //언어설정을 위한
 const env = process.env.NODE_ENV;
@@ -21,7 +21,7 @@ if(env === "development"){
 
 const reducer = combineReducers({
     user,
-    music,
+    eclass,
     routing: routerReducer,
     i18nState
 });

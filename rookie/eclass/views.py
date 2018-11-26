@@ -1,5 +1,6 @@
 from . import models, serializers
 from rest_framework.views import APIView
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from . import subject
 from django.http import HttpResponse
@@ -32,34 +33,146 @@ class TodayCheck(APIView):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+
 class Login(APIView):
     permission_classes = (AllowAny,)
-    def post(self,request):
+    def post(self, request, format=None):
+        print("dd")
         req = requests.Session()
         json_body = json.loads(request.body)
         userid = json_body['userid']
         userpw = json_body['userpw']
+        ban_list=[]
         req, result = login.eclasslogin(req, userid,userpw)
         if(result):
-            sub_list = subject.subject(req)
+            if(models.List.objects.filter(creator=userid).count()==0):
+                sub_list = subject.subject(req,ban_list)
+                sub_id_list = []
+                for sub in sub_list:
+                    if(models.Subject.objects.filter(sub_id=sub["sub_id"]).count()==0):
+                        new_subject = models.Subject(sub_name=sub["sub_name"],sub_id=sub["sub_id"])
+                        new_subject.save()
+                    sub_id_list.append(sub["sub_id"])
+                new_list = models.List(creator=userid)
+                db_sub_list = []
+                for i in models.Subject.objects.filter(sub_id__in=sub_id_list):
+                    db_sub_list.append(i)
+                #print(db_sub_list.object)
+                new_list.save()
+                new_list.Subject_list.set(db_sub_list)
+                
+
+            #serializer = serializers.SubjectSerializer(sub_list, many=True)
+            #print(serializer.data)
+            #new_list = models.List(creator=userid)
+            #new_list.Subject_list.set(sub_list)
+            #new_list.save()
+            #serialiserializers.SubjectSerializer(sub_list,many=True)
             #print(sub_list.index("확률과정론"))
-            serializer = serializers.SubjectSerializer(sub_list,many=True)
-            response = Response(sub_list, status=status.HTTP_200_OK)
-            response.set_cookie(key="userid",value=userid)
-            response.set_cookie(key="userpw", value=userid)
-            dirname = "rookie/temporary" + "/" + str(userid)
-            if not os.path.isdir(dirname):
-	            os.makedirs(dirname)
-            return response
-        return Response(status=status.HTTP_200_OK)
+            #serializer = serializers.SubjectSerializer(sub_list,many=True)
+            #response = Response(sub_list, status=status.HTTP_200_OK)
+            #response.set_cookie(key="userid",value=userid)
+            #response.set_cookie(key="userpw", value=userid)
+            #try:
+            #    userfile = models.user_models.objects.filter(value=userid)
+            #except:
+            #    new_user = models.user_models()
+            #dirname = "rookie/temporary" + "/" + str(userid)
+            #if not os.path.isdir(dirname):
+	        #    os.makedirs(dirname)
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+class Subject(APIView):
+    #permission_classes = (AllowAny,)
+    def post(self, request, format=None):
+        userid = request.user.username 
+        req = requests.Session()
+        json_body = json.loads(request.body)
+        ban_list = []
+        userpw = json_body['userpw']
+        #print(userid)
+        #try:
+        try:
+            userfile = models.ZipFile.objects.get(file_creator=userid)
+            serializer = serializers.NoteSerializer(userfile.note_list.Note_list,many=True)
+            for down_list in serializer.data:
+                ban_list.append(down_list["file_url"])
+        except:
+            pass
+        #print(userfile.note_list)
+        #print(serializer.data)
+        #print(user_info['note_list'])
+        #except:
+            #print("not")
+        #print(userpw)
+        req, result = login.eclasslogin(req, userid, userpw)
+        if(result):
+            sub_list = subject.subject(req,ban_list)
+            serializer = serializers.SubjectSerializer(sub_list, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class Download(APIView):
-    permission_classes = (AllowAny,)
-    def get(self,request):
-        sub_id = request.query_params.get('sub_id', None)
-        sub_id = sub_id.split(",")
-        userid = request.COOKIES.get('userid')
-        userpw = request.COOKIES.get('userpw')
+    def post(self,request):
+        userid = request.user.username
+        req = requests.Session()
+        json_body = json.loads(request.body)
+        userpw = json_body['userpw']
+        ban_list = []
+        try:
+            userfile = models.ZipFile.objects.get(file_creator=userid)
+            serializer = serializers.NoteSerializer(userfile.note_list.Note_list, many=True)
+            for down_list in serializer.data:
+                ban_list.append(down_list["file_url"])
+        
+        except:
+            pass
+        
+        dirname = "rookie/temporary" + "/" + str(userid)
+        cnt = 0
+        req, result = login.eclasslogin(req, userid, userpw)
+        if(result):
+            sub_list = subject.subject(req, ban_list)
+        for item in sub_list:
+            try:
+                note_list = models.NoteList.objects.get(creator=userid)
+            except:
+                note_list = models.NoteList(creator=userid)
+                note_list.save()
+
+            for note in item['Note_list']:
+                cnt = cnt + 1
+                try:
+                    new_note = models.NoteFile.object.get(file_name=note["file_name"])
+                except:
+                    new_note = models.NoteFile(file_name=note["file_name"],file_url=note["file_url"])
+                    new_note.save()
+                note_list.Note_list.add(new_note)
+            note_list.save()
+            download.download(req, dirname, item['sub_id'], item['sub_name'], ban_list)
+        if(cnt>0):
+            zippy.makezip(dirname+"/"+userid, dirname)
+        now = datetime.now()
+        try:
+            zipfile = models.ZipFile.objects.get(file_creator=userid)
+            zipfile.recent_download = now.strftime('%Y-%m-%d')
+            zipfile.save()
+            serializer = serializers.FileSerializer(zipfile)
+        except:
+            #new_file = models.ZipFile(file_name=userid+"님의 강의노트", file_creator=userid, file_url="http://localhost:8000/download/" +
+                                      #userid+"/"+userid+".zip", note_list=note_list, recent_download=now.strftime('%Y-%m-%d'))
+            new_file = models.ZipFile(file_name=userid+"님의 강의노트", file_creator=userid, file_url="http://ajounice.com/download/" +
+                                      userid+"/"+userid+".zip", note_list=note_list, recent_download=now.strftime('%Y-%m-%d'))
+            new_file.save()
+            serializer = serializers.FileSerializer(new_file)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        '''
+
         now = datetime.now()
         try:
             userfile = models.ZipFile.objects.filter(created_at=now).get(file_creator=userid)
@@ -74,13 +187,15 @@ class Download(APIView):
                     if item['sub_id'] in sub_id:
                         download.download(req, dirname, item['sub_id'], item['sub_name'])
                 zippy.makezip(dirname+"/"+userid, dirname)
-                new_file = models.ZipFile(file_name=userid,file_creator=userid,file_url=dirname+"/"+userid+".zip")
+                new_file = models.ZipFile(file_name=userid+"님의 강의노트",file_creator=userid,file_url=dirname+"/"+userid+".zip")
                 new_file.save()
                 serializer = serializers.FileSerializer(new_file)
                 return Response(data=serializer.data, status=status.HTTP_200_OK)
             except:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(data=serializer.data,status=status.HTTP_200_OK)
+        '''
+        #return Response(status=status.HTTP_200_OK)
 '''
 class ListTagTop100(ListAPIView): #Tag not contain Top 100
     permission_classes = (AllowAny,)

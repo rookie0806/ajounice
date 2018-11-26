@@ -23,6 +23,18 @@ const LoginForm = props => (
                 name="password"
             />
             <input type = "submit" value="로그인" className={formStyles.button}/>
+            <div className={formStyles.failure}>{props.msg==='1'?
+                    <div>
+                        Portal ID 혹은 PW를 확인해주세요.
+                    </div> 
+                    : props.msg==='2'?
+                    <div>
+                        로그인 성공
+                    </div> 
+                    :
+                    <div></div>
+                }
+            </div>
         </form>
     </div>
 );

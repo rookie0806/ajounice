@@ -9,14 +9,14 @@ from rest_framework_jwt.views import obtain_jwt_token
 from rookie import views
 
 urlpatterns = [
-    url(r'^', views.ReactAppView.as_view()),
     url(settings.ADMIN_URL, admin.site.urls),
-    #url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^eclass/', include("rookie.eclass.urls", namespace="eclass")),
     url(r'^users/', include("rookie.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
+    #url(r'^', views.ReactAppView.as_view()),
     
     # Your stuff: custom urls includes go here
 ] + static(
