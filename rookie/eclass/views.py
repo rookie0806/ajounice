@@ -132,7 +132,7 @@ class Download(APIView):
         except:
             pass
         
-        dirname = "rookie/temporary" + "/" + str(userid)
+        dirname = "rookie/temporary" + "/" + str(userid)    
         cnt = 0
         req, result = login.eclasslogin(req, userid, userpw)
         if(result):
@@ -153,9 +153,9 @@ class Download(APIView):
                     new_note.save()
                 note_list.Note_list.add(new_note)
             note_list.save()
-            download.download(req, dirname, item['sub_id'], item['sub_name'], ban_list)
+            download.download(req, dirname+"/lecture", item['sub_id'], item['sub_name'], ban_list)
         if(cnt>0):
-            zippy.makezip(dirname+"/"+userid, dirname)
+            zippy.makezip(dirname+"/"+userid, dirname+"/lecture/")
         now = datetime.now()
         try:
             zipfile = models.ZipFile.objects.get(file_creator=userid)
