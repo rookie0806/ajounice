@@ -164,7 +164,7 @@ class Download(APIView):
             serializer = serializers.FileSerializer(zipfile)
         except:
             #new_file = models.ZipFile(file_name=userid+"님의 강의노트", file_creator=userid, file_url="http://localhost:8000/download/" +
-                                      #userid+"/"+userid+".zip", note_list=note_list, recent_download=now.strftime('%Y-%m-%d'))
+            #                          userid+"/"+userid+".zip", note_list=note_list, recent_download=now.strftime('%Y-%m-%d'))
             new_file = models.ZipFile(file_name=userid+"님의 강의노트", file_creator=userid, file_url="http://ajounice.com/download/" +
                                       userid+"/"+userid+".zip", note_list=note_list, recent_download=now.strftime('%Y-%m-%d'))
             new_file.save()
