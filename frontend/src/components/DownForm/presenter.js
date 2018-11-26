@@ -36,7 +36,7 @@ const DownForm = props => (
                         {props.subject.map(
                             (subject_name,index)=> <DownTable index={index} {...props}{...subject_name} key={index} />
                         )}
-                     <button onClick={props.downClick}className={Styles.downbutton} disabled={!props.visible}>
+                     <button onClick={props.downClick}className={Styles.downbutton} disabled={props.visible}>
                      <div>ZIP파일로 다운로드</div>
                         {props.visible===true?
                         <div className={Styles.loadingbar}>
