@@ -40,7 +40,7 @@ class Container extends Component{
         this.setState({
             visible : true
         })
-        console.log(this.state.visible)
+            //console.log(this.state.visible)
         const {getDownUrl} = this.props;
         getDownUrl()
     }
