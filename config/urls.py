@@ -16,7 +16,6 @@ urlpatterns = [
     url(r'^eclass/', include("rookie.eclass.urls", namespace="eclass")),
     url(r'^users/', include("rookie.users.urls", namespace="users")),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'/', views.ReactAppView.as_view()),
     url(r'^main/', views.ReactAppView.as_view()),
     
     # Your stuff: custom urls includes go here
