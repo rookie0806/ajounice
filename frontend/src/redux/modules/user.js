@@ -20,7 +20,7 @@ function applyMsg(state,action){
     };
 }
 function saveToken(token,pw){
-    console.log(token)
+    //console.log(token)
     //console.log(pw)
     return{
         type: SAVE_TOKEN,
@@ -140,7 +140,7 @@ function createAccount(username,password,email,name,dispatch){
         })
         .then(response=>response.json())
         .then(json=>{
-            console.log(json)
+            //console.log(json)
             if(json.token){
                 dispatch(saveToken(json.token, password));
             }

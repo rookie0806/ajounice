@@ -6,8 +6,8 @@ import ToggleDisplay from "react-toggle-display";
 import Loader from 'react-loader-spinner';
 
 const Down = props => {
-    console.log(props.visible)
-    console.log(props.show)
+    //console.log(props.visible)
+    //console.log(props.show)
     
     if(props.loading){
         return <LoadingMain/>
@@ -55,7 +55,6 @@ const DownForm = props => (
     </div>
 );
 const DownTable = (props, context) => {
-    console.log(props.index)
     return(
         <div className={Styles.item}>
              <button onClick={props.handleClick.bind(this,props.index)} className={Styles.button}><div className={Styles.subname}>{props.sub_name}({props.Note_list.length})</div></button>

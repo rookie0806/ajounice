@@ -48,7 +48,7 @@ function getDownUrl() {
     }
 }
 function getSubject() {
-    console.log("dd")
+    //console.log("dd")
     //var csrftoken = readCookie('csrftoken');
     const url = "/eclass/subject/"
     return function (dispatch, getState ) {
